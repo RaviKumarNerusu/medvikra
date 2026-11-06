@@ -30,4 +30,16 @@ git remote add origin YOUR_GITHUB_REPOSITORY_URL
 git push -u origin main
 ```
 
-Import the repository into Vercel, select Vite, use `npm run build` and `dist`, and add the environment variables. In Domains, add `medvikra.in` and `www.medvikra.in`; use the exact DNS records Vercel displays, preserve any existing MX/SPF/DKIM/DMARC records, and wait for verification/HTTPS. DNS and deployment are not claimed complete by this repository.
+Import the repository into Vercel, select Vite, use `npm run build` and `dist`, and add the environment variables. The current Vercel project is `medgenesis`, with `medvikra.in` as its intended production domain.
+
+### GoDaddy DNS records
+
+In GoDaddy DNS Management for `medvikra.in`, preserve existing email-related `MX`, `SPF`, `DKIM`, and `DMARC` records. Add the following records exactly:
+
+| Type | Name | Value |
+|---|---|---|
+| A | `@` | `216.198.79.1` |
+| A | `@` | `64.29.17.1` |
+| CNAME | `www` | `f61e069d0bcb485d.vercel-dns-017.com.` |
+
+Remove only conflicting old `A` records for `@` or conflicting `CNAME` records for `www`. Do not change nameservers unless Vercel specifically instructs you to do so. Wait for DNS propagation, then verify both domains in Vercel. HTTPS is provisioned by Vercel after verification.
